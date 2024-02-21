@@ -64,12 +64,20 @@ const gameBoard = (function () {
         if(p1wins) console.log('p1wins')
         else if(p2wins) console.log('p2wins')
 
+
+        if(p1wins || p2wins) flow.displayEnd()
+
         flow.changeActivePlayer()
     }
 
     const setUpBoard = () => {
+
+        document.querySelector('.start').className = 'start invisible'
+
         gameBoardElem = document.createElement('div')
         container = document.querySelector('.container')
+
+        container.className = 'container visible'
 
         gameBoardElem.className = 'board'
 
@@ -150,19 +158,34 @@ const flow = (function () {
     const s2 = 'O'
     // p1_name = prompt('What is the name of player 1: ')
     // p2_name = prompt('What is the name of player 2: ')
-    player1 = player('Turtle', s1)
-    player2 = player('Yertle', s2)
+
     gameBoard.clearBoard()
     activePlayerSymbol = '*'
 
-    gameBoard.setUpBoard()
-
     const displayStart = () => {
+        document.querySelector('.container').className = 'container invisible'
+        document.querySelector('.board').remove()
+
+        form = document.querySelector('.start.invisible')
+
+        form.className = 'start'
+
+        form.addEventListener('submit', (event) => {
+            event.preventDefault();
+
+            const formData = new FormData(event.target);
+            player1 = player(formData.get('p1'), s1)
+            player2 = player(formData.get('p2'), s2)
+
+            gameBoard.setUpBoard()
+        })
         
     }
 
     const displayEnd = () => {
-
+        document.querySelector('.container').className = 'container invisible'
+        document.querySelector('.board').remove()
+        gameBoard.clearBoard()
     }
 
     const changeActivePlayer = () => {
@@ -171,6 +194,9 @@ const flow = (function () {
         activePlayerSymbol = player2.symbol
     }
 
-    return {changeActivePlayer}
+    return {changeActivePlayer, displayEnd, displayStart}
 })()
+
+gameBoard.setUpBoard()
+flow.displayStart()
 
