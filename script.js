@@ -42,12 +42,25 @@ const gameBoard = (function () {
     }
 
     const play = (event) => {
-        board[event.currentTarget.dataset.row][event.currentTarget.dataset.col] = activePlayerSymbol
-        flow.changeActivePlayer()
-        gameBoard.toString()
-        if(gameBoard.checkWinner(player1.symbol)) console.log('p1wins')
-        else if(gameBoard.checkWinner(player2.symbol)) console.log('p2wins')
 
+        board[event.currentTarget.dataset.row][event.currentTarget.dataset.col] = activePlayerSymbol
+
+        const img = document.createElement('img')
+        if(activePlayerSymbol == '*') img.src = './assests/cross.png'
+        else img.src = './assests/circle.png'
+
+        img.className = 'peice'
+
+        event.currentTarget.appendChild(img)
+
+        gameBoard.toString()
+
+        p1wins = gameBoard.checkWinner(player1.symbol)
+        p2wins = gameBoard.checkWinner(player2.symbol)
+        if(p1wins) console.log('p1wins')
+        else if(p2wins) console.log('p2wins')
+
+        flow.changeActivePlayer()
     }
 
     const setUpBoard = () => {
@@ -62,6 +75,7 @@ const gameBoard = (function () {
         
     }
 
+    // We create grid elements and define onClick here
     const setPeices = (gameBoardElem) => {
         for(i = 0; i < board.length; i++){
             for(j = 0; j < board[i].length; j++){
@@ -112,7 +126,7 @@ const gameBoard = (function () {
         diag2 = true
         for(i = 0; i < board.length; i++){
             if(board[i][i] != symbol) diag1 = false
-            if(board[board.length - i - 1][board[i].length - i - 1] != symbol) diag2 = false
+            if(board[i][board[i].length - i - 1] != symbol) diag2 = false
         }
 
         if(diag1 | diag2) return true

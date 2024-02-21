@@ -48,3 +48,9 @@ body{
 .boardItem{
     background-color: lightgrey;
 }
+
+.peice{
+    height: 90%;
+    width: 90%;
+    object-fit: contain;
+}
