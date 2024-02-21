@@ -61,15 +61,17 @@ const gameBoard = (function () {
 
         p1wins = gameBoard.checkWinner(player1.symbol)
         p2wins = gameBoard.checkWinner(player2.symbol)
+        draw = gameBoard.checkDraw()
         if(p1wins) console.log('p1wins')
         else if(p2wins) console.log('p2wins')
 
-        if(p1wins || p2wins) {
+        if(p1wins || p2wins || draw) {
 
             const winnerAnnouncement = document.querySelector('.playerName')
 
             if(p1wins) winnerAnnouncement.innerHTML = player1.name + ' won the game.'
-            if(p2wins) winnerAnnouncement.innerHTML = player2.name + ' won the game.'
+            else if(p2wins) winnerAnnouncement.innerHTML = player2.name + ' won the game.'
+            else winnerAnnouncement.innerHTML = "It's a draw."
 
             flow.displayEnd()
         }
@@ -114,6 +116,16 @@ const gameBoard = (function () {
         }
     }
 
+    const checkDraw = () => {
+        draw = true
+        for(i = 0; i < board[0].length; i++){
+            for(j = 0; j < board.length; j++){
+                if(board[j][i] != flow.s1 && board[j][i] != flow.s2) draw = false;
+            }
+        }
+        return draw
+    }
+
     const checkWinner = (symbol) => {
         if(checkRow(symbol) || checkColumn(symbol) || checkDiag(symbol)) return true
         else return false        
@@ -153,7 +165,7 @@ const gameBoard = (function () {
         else return false
     }
 
-    return {play, toString, checkWinner, setUpBoard, clearBoard}
+    return {play, toString, checkWinner, checkDraw, setUpBoard, clearBoard}
 })()
 
 /**
@@ -224,7 +236,7 @@ const flow = (function () {
         flow.displayStart()
     }
 
-    return {changeActivePlayer, displayEnd, displayStart, runFlow}
+    return {changeActivePlayer, displayEnd, displayStart, runFlow, s1, s2}
 })()
 
 flow.runFlow()

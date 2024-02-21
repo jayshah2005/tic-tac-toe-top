@@ -73,7 +73,7 @@ input:focus-visible{
     position: absolute;
     left: 20px;
     top: -3rem;
-    gap: 118px;
+    gap: 100px;
     font-size: 3rem;
 }
 
