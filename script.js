@@ -190,6 +190,7 @@ const flow = (function () {
             player1 = player(formData.get('p1'), s1)
             player2 = player(formData.get('p2'), s2)
 
+            form.reset()
             gameBoard.setUpBoard()
         })
         

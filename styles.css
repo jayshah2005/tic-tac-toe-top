@@ -41,9 +41,12 @@ input{
     border: none;
     background-color: transparent;
     border-bottom: 2px solid black;
-    
+    padding: 0px;
 }
 
+input:focus-visible{
+    outline: none;
+}
 
 .footer{
     display: flex;
@@ -57,10 +60,29 @@ input{
     background-color: grey;
 
     display: flex;
+    position: relative;
+    flex-direction: column;
 
     align-items: center;
     justify-content: center;
 
+}
+
+.instructions{
+    display: flex;
+    position: absolute;
+    left: 20px;
+    top: -3rem;
+    gap: 118px;
+    font-size: 3rem;
+}
+
+img.instruction{
+    position: relative;
+    height: 3rem;
+    width: 3rem;
+    left: -10px;
+    top: 10px;
 }
 
 .container.invisible, .start.invisible, .end.invisible{
