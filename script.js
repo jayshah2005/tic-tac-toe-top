@@ -68,6 +68,10 @@ const gameBoard = (function () {
         if(p1wins || p2wins || draw) {
 
             const winnerAnnouncement = document.querySelector('.playerName')
+            const outcome = document.querySelector('.winner')
+
+            if(p1wins | p2wins) outcome.innerHTML = 'Congratulations!'
+            else outcome.innerHTML = 'Huh..'
 
             if(p1wins) winnerAnnouncement.innerHTML = player1.name + ' won the game.'
             else if(p2wins) winnerAnnouncement.innerHTML = player2.name + ' won the game.'
