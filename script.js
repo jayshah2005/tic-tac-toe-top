@@ -208,7 +208,6 @@ const flow = (function () {
         })
 
         document.querySelector('.start').addEventListener('submit', (event) => {
-            form.reset();
             event.preventDefault()
 
             const formData = new FormData(event.target);
@@ -216,6 +215,7 @@ const flow = (function () {
             player2 = player(formData.get('p2'), s2)
 
             if(player1.name != null && player2.name !=null) {
+                form.reset();
                 gameBoard.setUpBoard()
             } 
         })
