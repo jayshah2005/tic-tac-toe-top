@@ -23,7 +23,7 @@ h1{
     margin: 20px 0px;
 }
 
-.button{
+.button, .play-button, .quit-button{
     width: 150px;
     height: 40px;
     padding: 10px;
@@ -63,7 +63,7 @@ input{
 
 }
 
-.container.invisible, .start.invisible{
+.container.invisible, .start.invisible, .end.invisible{
     display: none;
     position: absolute;
     height: 0px;
@@ -96,4 +96,20 @@ input{
     height: 90%;
     width: 90%;
     object-fit: contain;
+}
+
+.announcement{
+    display: flex;
+    flex-direction: column;
+    margin: 20px 0px;
+    font-size: 3rem;
+}
+
+.playerName{
+    font-size: 2rem;
+}
+
+.buttons{
+    display: flex;
+    justify-content: space-around;
 }

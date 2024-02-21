@@ -64,8 +64,15 @@ const gameBoard = (function () {
         if(p1wins) console.log('p1wins')
         else if(p2wins) console.log('p2wins')
 
+        if(p1wins || p2wins) {
 
-        if(p1wins || p2wins) flow.displayEnd()
+            const winnerAnnouncement = document.querySelector('.playerName')
+
+            if(p1wins) winnerAnnouncement.innerHTML = player1.name + ' won the game.'
+            if(p2wins) winnerAnnouncement.innerHTML = player2.name + ' won the game.'
+
+            flow.displayEnd()
+        }
 
         flow.changeActivePlayer()
     }
@@ -73,6 +80,7 @@ const gameBoard = (function () {
     const setUpBoard = () => {
 
         document.querySelector('.start').className = 'start invisible'
+        document.querySelector('.end').className = 'end invisible'
 
         gameBoardElem = document.createElement('div')
         container = document.querySelector('.container')
@@ -163,8 +171,13 @@ const flow = (function () {
     activePlayerSymbol = '*'
 
     const displayStart = () => {
+
+        const board = document.querySelector('.board')
+
         document.querySelector('.container').className = 'container invisible'
-        document.querySelector('.board').remove()
+        document.querySelector('.end').className = 'end invisible'
+
+        if(board != null) board.remove()
 
         form = document.querySelector('.start.invisible')
 
@@ -185,6 +198,7 @@ const flow = (function () {
     const displayEnd = () => {
         document.querySelector('.container').className = 'container invisible'
         document.querySelector('.board').remove()
+        document.querySelector('.end.invisible').className = 'end'
         gameBoard.clearBoard()
     }
 
@@ -194,9 +208,20 @@ const flow = (function () {
         activePlayerSymbol = player2.symbol
     }
 
-    return {changeActivePlayer, displayEnd, displayStart}
+    const runFlow = () => {
+        document.querySelector('.play-button').addEventListener('click', (event) => {
+            gameBoard.setUpBoard();
+        })
+
+        document.querySelector('.quit-button').addEventListener('click', (event) => {
+            flow.displayStart();
+        })
+
+        gameBoard.setUpBoard()
+        flow.displayStart()
+    }
+
+    return {changeActivePlayer, displayEnd, displayStart, runFlow}
 })()
 
-gameBoard.setUpBoard()
-flow.displayStart()
-
+flow.runFlow()
