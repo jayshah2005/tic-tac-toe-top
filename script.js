@@ -182,17 +182,6 @@ const flow = (function () {
         form = document.querySelector('.start.invisible')
 
         form.className = 'start'
-
-        form.addEventListener('submit', (event) => {
-            event.preventDefault();
-
-            const formData = new FormData(event.target);
-            player1 = player(formData.get('p1'), s1)
-            player2 = player(formData.get('p2'), s2)
-
-            form.reset()
-            gameBoard.setUpBoard()
-        })
         
     }
 
@@ -216,6 +205,19 @@ const flow = (function () {
 
         document.querySelector('.quit-button').addEventListener('click', (event) => {
             flow.displayStart();
+        })
+
+        document.querySelector('.start').addEventListener('submit', (event) => {
+            form.reset();
+            event.preventDefault()
+
+            const formData = new FormData(event.target);
+            player1 = player(formData.get('p1'), s1)
+            player2 = player(formData.get('p2'), s2)
+
+            if(player1.name != null && player2.name !=null) {
+                gameBoard.setUpBoard()
+            } 
         })
 
         gameBoard.setUpBoard()
