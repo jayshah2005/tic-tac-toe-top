@@ -42,8 +42,12 @@ const gameBoard = (function () {
     }
 
     const play = (event) => {
+        row = event.currentTarget.dataset.row
+        col = event.currentTarget.dataset.col
 
-        board[event.currentTarget.dataset.row][event.currentTarget.dataset.col] = activePlayerSymbol
+        if(board[row][col] != '') return
+
+        board[row][col] = activePlayerSymbol
 
         const img = document.createElement('img')
         if(activePlayerSymbol == '*') img.src = './assests/cross.png'
@@ -139,6 +143,7 @@ const gameBoard = (function () {
 /**
  * The logic that connects everything together
  * Initiallizes two players
+ * Displays start and end screen
  */
 const flow = (function () {
     const s1 = '*'
@@ -151,6 +156,14 @@ const flow = (function () {
     activePlayerSymbol = '*'
 
     gameBoard.setUpBoard()
+
+    const displayStart = () => {
+        
+    }
+
+    const displayEnd = () => {
+
+    }
 
     const changeActivePlayer = () => {
         activePlayerSymbol == s2 ? 
